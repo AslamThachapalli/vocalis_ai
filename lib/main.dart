@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vocalis_ai/injection_container.dart';
 
 void main() {
+  init();
   runApp(const MyApp());
 }
 
