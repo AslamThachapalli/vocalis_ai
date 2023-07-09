@@ -2,15 +2,13 @@
 
 A Voice Assistant App with Flutter.
 
-## Getting Started
+After cloning the app paste your OpenAI Api Key in the location `lib\infrastructure\core\api_key.dart` as
 
-This project is a starting point for a Flutter application.
+```dart
+const String apiKey = "YOUR_API_KEY"
+```
 
-A few resources to get you started if this is your first Flutter project:
+## App Preview
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://github.com/AslamThachapalli/vocalis_ai/assets/113328135/5ab2895f-5671-4023-8799-2e9e41da3721
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
