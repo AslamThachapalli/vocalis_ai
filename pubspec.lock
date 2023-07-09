@@ -238,11 +238,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      sha256: b39c753e909d4796906c5696a14daf33639a76e017136c8d82bf3e620ce5bb8e
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tts:
+    dependency: "direct main"
+    description:
+      name: flutter_tts
+      sha256: "679192274aef74c9fda70dfe8d6f431de118aee91ef1eb415bba361d78a9cd08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

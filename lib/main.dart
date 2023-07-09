@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vocalis_ai/application/prompt/prompt_bloc.dart';
 import 'package:vocalis_ai/injection_container.dart';
+import 'package:vocalis_ai/presentation/home_page/home_page.dart';
 
 void main() {
   init();
@@ -12,30 +15,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vocalis AI',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+    return BlocProvider(
+      create: (context) => getIt<PromptBloc>(),
+      child: MaterialApp(
+        title: 'Vocalis AI',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomePage(),
       ),
     );
   }

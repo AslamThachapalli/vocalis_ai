@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -33,9 +34,8 @@ class PromptRepository implements IPromptRepo {
             {
               'role': 'user',
               'content':
-                  'Does this message want to generate an AI picture, image, art or'
-                      ' anything similar? ${prompt.query}. '
-                      'Simply answer with a yes or no.',
+                  "Please indicate if the following prompt is intended for generating an image or text: Prompt: '${prompt.query}' "
+                      "Reply with either 'image' or 'text' to specify the intended output.",
             }
           ],
         }),
@@ -46,12 +46,14 @@ class PromptRepository implements IPromptRepo {
             .textResponse
             .toLowerCase();
 
-        if (typeResponse == 'yes') {
+        log(typeResponse, name: "Prompt type");
+        if (typeResponse.contains('image')) {
           return right(const PromptType.image());
         } else {
           return right(const PromptType.text());
         }
       } else {
+        log(res.body + res.statusCode.toString(), name: "Gpt error");
         return left(const PromptFailure.serverError());
       }
     } on SocketException catch (_) {
@@ -90,6 +92,7 @@ class PromptRepository implements IPromptRepo {
 
         return right(imageResponse);
       } else {
+        log(res.body + res.statusCode.toString(), name: "Dall-E error");
         return left(const PromptFailure.serverError());
       }
     } on SocketException catch (_) {
@@ -129,6 +132,7 @@ class PromptRepository implements IPromptRepo {
 
         return right(textResponse);
       } else {
+        log(res.body + res.statusCode.toString(), name: "Gpt error");
         return left(const PromptFailure.serverError());
       }
     } on SocketException catch (_) {

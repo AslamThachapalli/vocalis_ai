@@ -23,30 +23,33 @@ class PromptBloc extends Bloc<PromptEvent, PromptState> {
       final typeResponse =
           await _promptRepo.identifyPrompt(prompt: Prompt(query: event.query));
 
-      typeResponse.fold(
+      await typeResponse.fold(
         (failure) => _mapFailures(failure, emit),
-        (type) {
+        (type) async {
           late final Either<failure.PromptFailure, Response> promptResponse;
 
-          type.map(
+          await type.map(
             text: (_) async {
               promptResponse = await _promptRepo.promptForText(
                   prompt: Prompt(query: event.query));
+
+              await promptResponse.fold(
+                (failure) => _mapFailures(failure, emit),
+                (response) {
+                  emit(TextResponse(content: response.textResponse));
+                },
+              );
             },
             image: (_) async {
               promptResponse = await _promptRepo.promptForImage(
                   prompt: Prompt(query: event.query));
-            },
-          );
 
-          promptResponse.fold(
-            (failure) => _mapFailures(failure, emit),
-            (response) {
-              if (response.textResponse.isNotEmpty) {
-                emit(TextResponse(content: response.textResponse));
-              } else if (response.imageUrl.isNotEmpty) {
-                emit(ImageResponse(imageUrl: response.imageUrl));
-              }
+              await promptResponse.fold(
+                (failure) => _mapFailures(failure, emit),
+                (response) {
+                  emit(ImageResponse(imageUrl: response.imageUrl));
+                },
+              );
             },
           );
         },
